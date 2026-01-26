@@ -211,15 +211,24 @@ onClick={getSuggestion}
 
       <div className='flex-1 overflow-y-auto p-2 space-y-3' ref={chatBoxRef}>
         <AnimatePresence>
-          {messages?.map((msg, index) => (
-            <motion.div
-              key={msg._id?.toString()}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className={`flex ${msg.senderId.toString()==userData?._id?"justify-end":"justify-start"}`}
-            >
+  {messages?.map((msg, index) => (
+    <motion.div
+    key={
+  typeof msg._id === "string"
+    ? msg._id
+    : msg._id?.toString() ??
+      `${msg.senderId.toString()}-${msg.time}-${index}`
+}
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className={`flex ${
+        msg.senderId.toString() === userData?._id?.toString()
+          ? "justify-end"
+          : "justify-start"
+      }`}
+    >
               <div  className={`px-4 py-2 max-w-[75%] rounded-2xl shadow 
                   ${
                     msg.senderId.toString() === userData?._id

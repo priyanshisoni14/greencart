@@ -175,7 +175,12 @@ const verifyOtp = async () => {
           <div className='rounded-xl border shadow-lg overflow-hidden mb-6'>
             <LiveMap userLocation={userLocation} deliveryBoyLocation={deliveryBoyLocation} />
           </div>
-          <DeliveryChat orderId={activeOrder.order._id} deliveryBoyId={userData?._id?.toString()}/>
+          {userData?._id && (
+  <DeliveryChat
+    orderId={activeOrder.order._id}
+    deliveryBoyId={userData._id.toString()}
+  />
+)}
           <div className='mt-6 bg-white rounded-xl border shadow p-6'>
             {!activeOrder.order.deliveryOtpVerification && !showOtpBox && (
              <button
